@@ -182,11 +182,16 @@ docker run --rm -it -v "$(pwd):/app" composer/composer install
 To add Composer to an existing **Dockerfile** you can simply copy binary file from pre-built, low-size images:
 
 ```Dockerfile
-# Latest release
-COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+# Multi-stage syntax: COPY --from=[hub name]:[version] [source] [destination]
+
+# Latest release, official image
+COPY --from=composer:latest-bin /usr/bin/composer /usr/bin/composer
+
+# Latest release, realtime official image
+COPY --from=composer/composer:latest-bin /usr/bin/composer /usr/bin/composer
 
 # Specific release
-COPY --from=composer/composer:2-bin /composer /usr/bin/composer
+COPY --from=composer:2-bin /usr/bin/composer /usr/bin/composer
 ```
 
 Read the [image description](https://hub.docker.com/r/composer/composer) for further usage information.
